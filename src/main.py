@@ -265,6 +265,8 @@ class PropertyVerificationAgent:
 
         # === STEP 8: Output ===
         print("✅ Done.")
+        self.last_report = report.model_dump(mode="json")
+        self.last_report["normalized"] = normalized.model_dump(mode="json")
         return self.reporter.to_text(report), portal_result.downloaded_files
 
     def _error_report(self, message: str) -> str:

@@ -30,7 +30,7 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from dotenv import load_dotenv
-load_dotenv(os.path.join(PROJECT_ROOT, ".env"), override=True)
+load_dotenv(os.path.join(PROJECT_ROOT, ".env"), override=False)
 
 from src.main import PropertyVerificationAgent
 
@@ -99,6 +99,7 @@ def verify_property_document(
 
     # 3. Execute Verification Engine
     agent = get_agent()
+    agent.last_report = None
     try:
         report_text, downloaded_files = agent.process(
             file_bytes=file_bytes,
@@ -121,7 +122,8 @@ def verify_property_document(
                 risk = line_s.replace("RISK:", "").strip()
 
         return {
-            "success": True,
+            "success": verdict not in ("ERROR", "UNKNOWN"),
+            "data": agent.last_report or {},
             "verdict": verdict,
             "confidence": confidence,
             "risk": risk,

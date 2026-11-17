@@ -7,6 +7,8 @@ services:
     buildCommand: "pip install -r requirements.txt"
     startCommand: "uvicorn app:app --host 0.0.0.0 --port $PORT"
     envVars:
+      - key: VERIFICATION_SERVICE_TOKEN
+        sync: false
       - key: PORTAL_MODE
         value: http
       - key: OCR_MAX_WORKERS
