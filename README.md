@@ -1,4 +1,4 @@
-# Tamil Nadu Property Verification Agent (Backend Engine & REST API)
+# Tamil Nadu Property Verification Agent (Backend REST API)
 
 Autonomous AI & Government Portal Verification Engine for Tamil Nadu Land Documents (Sale Deeds, Settlement Deeds, Gift Deeds, and Patta).
 
@@ -35,7 +35,10 @@ OCR_MAX_WORKERS=2
 python app.py
 ```
 * Server starts on: **`http://localhost:8000`**
-* Interactive Test UI available at: **`http://localhost:8000/`**
+* API documentation: **`http://localhost:8000/docs`**
+* Service metadata: **`http://localhost:8000/`**
+* Readiness: **`http://localhost:8000/health`** or **`/api/internal/readiness`**
+* This service has no application frontend. Your backend should send multipart uploads to `POST /api/verify` with the required `file` field.
 
 ---
 
@@ -125,7 +128,7 @@ print(result["report"])
 
 ```text
 property_verification_agent/
-├── app.py                     # FastAPI REST API server + Modern HTML/Tailwind UI
+├── app.py                     # FastAPI backend REST API server
 ├── verify_service.py          # Clean high-level Python integration entry point
 ├── requirements.txt           # Minimal, lightweight dependencies (pure HTTP, no Chromium)
 ├── render.yaml                # 1-Click Render deployment configuration (512MB RAM optimized)
